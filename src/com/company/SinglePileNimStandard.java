@@ -6,6 +6,7 @@ class SinglePileNimStandard {
 
     public int singlePileSize = 12; // used to represent the size of the pile
     public int turnCounter = 0;  // counts the number of turns
+    public char tileCharacter;
 
 
     public void PlayerTurn(){
@@ -18,7 +19,7 @@ class SinglePileNimStandard {
             System.out.println("Enter the number of tiles to take (1, 2, or 3): ");
             i = playerInput.nextInt();
 
-            if (i > 3 || i < 1) {
+            if ( i > singlePileSize || i < 1 || i > 3) {
 
                 System.out.println("Invalid input, please try again");
 
