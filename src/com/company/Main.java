@@ -4,11 +4,9 @@
 * last modification date: 12/28/2020
 *
 * The purpose if this program is to make a single pile nim game in the command line with java
-* TODO: refine classes to improve polymorphism
+* TODO: refine classes to improve polymorphism (done once, can be done more as time goes on)
 * TODO: add more game types for single pile nim
 * TODO: add a rules page to explain the rules of the games
-* TODO: add checks to make sure players and ai cant take more tiles than there are left in the pile
-* TODO: add options menu to change aesthetics ex: different characters to represent tiles, etc.
 *
 * */
 
@@ -19,7 +17,52 @@ import java.util.Scanner;
 // Main will contain the main menu with the main game loop
 
 public class Main {
-    static void SinglePileNimArbitraryPileSizeGameLoop(){
+    static void GL_SPNStandard(){
+        SinglePileNimStandard GameState = new SinglePileNimStandard();
+        GameState.PrintPile();
+
+        while (GameState.SizeofPile() != 0){ // this while loop keeps the game going until there are no tiles left
+            GameState.PlayerTurn();
+            GameState.AITurn();
+
+        }
+
+        if (GameState.TurnNumber()%2==0){  // using mod for this comparison because ending on an even turn means the bot
+            System.out.println("AI Wins"); // was the last one to take the tile which means the bot wins, its the other
+            // way for odd turns
+        }
+
+        else {
+            System.out.println("You Win!");// we only get here by ending on an odd turn due to the previous if statement
+        }
+
+    } // function called to play standard single pile nim
+
+    static void GL_SPNLazy(){
+        SinglePileNimLazy GameState = new SinglePileNimLazy();
+        GameState.PrintPile();
+
+        while (GameState.SizeofPile() > 0){ // this while loop keeps the game going until there are no tiles left
+            if (GameState.TurnNumber()%2==0){
+                GameState.PlayerTurn();
+            }
+            else {
+                GameState.AITurn();
+            }
+        }
+
+        if (GameState.TurnNumber()%2==0){  // using mod for this comparison because ending on an even turn means the bot
+            System.out.println("AI Wins"); // was the last one to take the tile which means the bot wins, its the other
+            // way for odd turns
+        }
+
+        else {
+            System.out.println("You Win!");// we only get here by ending on an odd turn due to the previous if statement
+        }
+
+    }
+
+    static void GL_SPNArbitraryPileSize(){
         SinglePileNimArbitraryPileSize GameState = new SinglePileNimArbitraryPileSize();
         Scanner playerInput= new Scanner(System.in);
         boolean validInput = false;
@@ -64,51 +107,6 @@ public class Main {
 
     }
 
-    static void SinglePileNimGameLoop(){
-        SinglePileNimStandard GameState = new SinglePileNimStandard();
-        GameState.PrintPile();
-
-        while (GameState.SizeofPile() != 0){ // this while loop keeps the game going until there are no tiles left
-            GameState.PlayerTurn();
-            GameState.AITurn();
-
-        }
-
-        if (GameState.TurnNumber()%2==0){  // using mod for this comparison because ending on an even turn means the bot
-            System.out.println("AI Wins"); // was the last one to take the tile which means the bot wins, its the other
-                                           // way for odd turns
-        }
-
-        else {
-            System.out.println("You Win!");// we only get here by ending on an odd turn due to the previous if statement
-        }
-
-    } // function called to play standard single pile nim
-
-    static void SinglePileNimLazyGameLoop(){
-        SinglePileNimLazy GameState = new SinglePileNimLazy();
-        GameState.PrintPile();
-
-        while (GameState.SizeofPile() > 0){ // this while loop keeps the game going until there are no tiles left
-            if (GameState.TurnNumber()%2==0){
-                GameState.PlayerTurn();
-            }
-            else {
-                GameState.AITurn();
-            }
-        }
-
-        if (GameState.TurnNumber()%2==0){  // using mod for this comparison because ending on an even turn means the bot
-            System.out.println("AI Wins"); // was the last one to take the tile which means the bot wins, its the other
-            // way for odd turns
-        }
-
-        else {
-            System.out.println("You Win!");// we only get here by ending on an odd turn due to the previous if statement
-        }
-
-    }
-
     public static void main(String[] args) {
         Scanner mainScanner = new Scanner(System.in);
         boolean done = false;
@@ -128,9 +126,9 @@ public class Main {
 
             switch (playerChoice) {
                 case 0 -> done = true;
-                case 1 -> SinglePileNimGameLoop();
-                case 2 -> SinglePileNimLazyGameLoop();
-                case 3 -> SinglePileNimArbitraryPileSizeGameLoop();
+                case 1 -> GL_SPNStandard();
+                case 2 -> GL_SPNLazy();
+                case 3 -> GL_SPNArbitraryPileSize();
                 default -> System.out.println("Invalid input, try again");
             }
         }
