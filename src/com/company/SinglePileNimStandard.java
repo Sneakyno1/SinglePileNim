@@ -18,7 +18,7 @@ class SinglePileNimStandard {
             System.out.println("Enter the number of tiles to take (1, 2, or 3): ");
             i = playerInput.nextInt();
 
-            if (i > 3 || i < 1) {
+            if ( i > singlePileSize || i < 1 || i > 3) {
 
                 System.out.println("Invalid input, please try again");
 
