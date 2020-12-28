@@ -4,8 +4,8 @@ import java.util.Scanner;
 
 class SinglePileNimStandard {
 
-    private int singlePileSize = 12; // used to represent the size of the pile
-    private int turnCounter = 0;  // counts the number of turns
+    public int singlePileSize = 12; // used to represent the size of the pile
+    public int turnCounter = 0;  // counts the number of turns
 
 
     public void PlayerTurn(){
