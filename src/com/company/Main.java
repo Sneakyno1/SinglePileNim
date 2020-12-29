@@ -12,6 +12,7 @@
 
 package com.company;
 import java.util.Scanner;
+import java.util.Random;
 
 
 // Main will contain the main menu with the main game loop
@@ -107,6 +108,35 @@ public class Main {
 
     }
 
+    static void GL_SPNRandomTurn(){
+        SinglePileNimArbitraryPileSize GameState = new SinglePileNimArbitraryPileSize();
+        Random rand = new Random();
+        int randInt = 0;
+        GameState.PrintPile();
+
+        while (GameState.SizeofPile() > 0){ // this while loop keeps the game going until there are no tiles left
+            randInt = rand.nextInt(2);
+
+            if (randInt == 1){
+                GameState.PlayerTurn();
+            }
+
+            else{
+                GameState.AITurn();
+            }
+        }
+
+        if (GameState.TurnNumber()%2==0){  // using mod for this comparison because ending on an even turn means the bot
+            System.out.println("AI Wins"); // was the last one to take the tile which means the bot wins, its the other
+            // way for odd turns
+        }
+
+        else {
+            System.out.println("You Win!");// we only get here by ending on an odd turn due to the previous if statement
+        }
+
+    }
+
     public static void main(String[] args) {
         Scanner mainScanner = new Scanner(System.in);
         boolean done = false;
@@ -120,6 +150,7 @@ public class Main {
             System.out.println("1. Standard Single Pile Nim");
             System.out.println("2. Lazy Single Pile Nim");
             System.out.println("3. Arbitrary Pile Size Single Pile Nim");
+            System.out.println("4. Random turn Single Pile Nim");
             System.out.println("0. Exit the program");
 
             int playerChoice = mainScanner.nextInt();
@@ -129,6 +160,7 @@ public class Main {
                 case 1 -> GL_SPNStandard();
                 case 2 -> GL_SPNLazy();
                 case 3 -> GL_SPNArbitraryPileSize();
+                case 4 -> GL_SPNRandomTurn();
                 default -> System.out.println("Invalid input, try again");
             }
         }
