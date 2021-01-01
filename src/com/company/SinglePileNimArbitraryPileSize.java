@@ -8,7 +8,8 @@ public class SinglePileNimArbitraryPileSize extends SinglePileNimStandard{
         singlePileSize = i;
     } // Allows us to change the size of the pile
 
-    public void AITurn(){
+    public void AITurn(){ // TODO: maybe make it so the ai doesnt also get trapped by perfect play.
+                          // ex: by using n*4 +1 tiles and taking one, the user can enter perfect play and win
         turnCounter++;
         int amountTaken = singlePileSize%4;
 
